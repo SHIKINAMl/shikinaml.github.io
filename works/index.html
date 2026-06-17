@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Works | Shikinami Portfolio</title>
+    <meta name="description" content="制作実績一覧ページです。目的、技術、工夫点を掲載しています。" />
+    <link rel="stylesheet" href="../common/css/base.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body data-page="works">
+    <div data-include="../common/components/header.html"></div>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <p class="eyebrow">Works</p>
+                <h1>実績一覧</h1>
+                <p class="lead">各作品について、目的・使用技術・工夫したポイントを確認できます。</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="works-grid" id="worksGrid">
+                    <!-- ここにJavaScriptで作品パネルが挿入 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- モーダル -->
+        <div class="modal" id="workModal" style="display: none;">
+            <div class="modal-overlay" id="modalOverlay"></div>
+            <div class="modal-content">
+                <button class="modal-close" id="modalClose">&times;</button>
+                <div id="modalBody"></div>
+            </div>
+        </div>
+    </main>
+
+    <div data-include="../common/components/footer.html"></div>
+
+    <script src="../common/js/layout.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

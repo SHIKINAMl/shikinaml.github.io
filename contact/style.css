@@ -1,0 +1,131 @@
+.contact-main {
+    display: grid;
+    gap: 1rem;
+}
+
+.contact-form-panel {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 1.2rem;
+    box-shadow: var(--shadow);
+}
+
+.contact-form-panel h2 {
+    margin-top: 0;
+}
+
+.form-embed-wrap {
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: #fff;
+}
+
+.form-embed {
+    display: block;
+    width: 100%;
+    min-height: 960px;
+    border: 0;
+}
+
+.contact-sub-links {
+    display: grid;
+    gap: 1.6rem;
+    padding: 1.2rem;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+.contact-sub-links h2 {
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+}
+
+.account-group {
+    display: grid;
+    gap: 0.8rem;
+}
+
+.account-group-title {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.account-note {
+    margin: 0;
+    padding: 0.8rem;
+    background: #fef8e7;
+    border-left: 3px solid #ffc107;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: #333;
+    line-height: 1.5;
+}
+
+.account-list {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+}
+
+.account-list dt {
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+}
+
+.account-list dd {
+    margin: 0 0 0.8rem 0;
+    padding-left: 0;
+}
+
+.account-list a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+}
+
+.account-list a:hover {
+    opacity: 0.8;
+}
+
+.sub-links-title {
+    margin: 0;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.sub-links-list {
+    display: flex;
+    gap: 0.9rem;
+    font-size: 0.92rem;
+}
+
+.sub-links-list a {
+    color: var(--muted);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
+.sub-links-list a:hover {
+    color: var(--accent);
+}
+
+@media (max-width: 840px) {
+    .form-embed {
+        min-height: 760px;
+    }
+
+    .sub-links-list {
+        flex-wrap: wrap;
+        gap: 0.5rem 0.9rem;
+    }
+}

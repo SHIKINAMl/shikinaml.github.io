@@ -1,0 +1,32 @@
+/* About page specific styles */
+
+.activity-section {
+    margin-bottom: 1.6rem;
+}
+
+.activity-section:last-child {
+    margin-bottom: 0;
+}
+
+.activity-section h3 {
+    margin: 0 0 0.8rem 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 0.4rem;
+}
+
+.activity-section ul {
+    margin: 0;
+    padding-left: 1.2rem;
+}
+
+.activity-section li {
+    margin-bottom: 0.5rem;
+}
+
+.activity-section p {
+    margin: 0;
+    line-height: 1.6;
+}
