@@ -17,35 +17,37 @@
             <div class="container">
                 <p class="eyebrow">About</p>
                 <h1>自己紹介・経歴</h1>
-                <div class="card">
-                    <p>
-                        自己紹介
+                <nav class="about-nav" aria-label="About内のセクション移動">
+                    <a href="#circle-activity">サークル活動</a>
+                    <a href="#research-activity">研究活動</a>
+                    <a href="#skills">スキル一覧</a>
+                </nav>
+                <article class="card" id="profile-overview">
+                    <p class="summary-lead">
+                        敷波 佳翼（シキナミ ケイスケ）と申します。志望として、UXを重視したサービス開発やゲーム開発に携わりたいと考えています。情報工学を専攻し、アルゴリズムやシステム設計の基礎を学ぶと同時に、学生サークルでの共同開発や対話エージェントに関する研究を通じて、設計から実装・評価まで一貫して手を動かす経験を積んできました。企業で得られる学びを自分の創作やプロダクト設計に還元し、利用者にとって意味のある体験を生み出すことを目指しています。
                     </p>
-                </div>
-            </div>
-        </section>
 
-        <section class="section">
-            <div class="container">
-                <article class="card">
-                    <h2>ゲームサークルとしての活動</h2>
-                    <div class="activity-section">
-                        <h3>活動内容</h3>
-                        <ul class="list">
-                            <li></li>
-                            <li></li>
-                        </ul>
-                    </div>
-                    <div class="activity-section">
-                        <h3>活動の動機・目的</h3>
-                        <ul class="list">
-                            <li></li>
-                            <li></li>
-                        </ul>
-                    </div>
-                    <div class="activity-section">
-                        <h3>学んだこと</h3>
-                        <p></p>
+                    <div class="profile-flow">
+                        <section class="profile-step">
+                            <h3>志向</h3>
+                            <p>
+                                私は「利用者の体験価値を起点にした開発」を志向しています。また、学びを創作やプロダクトに還元していける職場で長期的に成長し、価値を提供したいと考えています。
+                            </p>
+                        </section>
+
+                        <section class="profile-step">
+                            <h3>経験</h3>
+                            <p>
+                                学部では情報工学を専攻し、アルゴリズムやシステム設計の基礎を修得しました。サークル活動では複数人開発の実務に近い運用を経験しました。
+                            </p>
+                        </section>
+
+                        <section class="profile-step">
+                            <h3>強み</h3>
+                            <p>
+                                私の強みは二点あります。第一に、経験に基づく設計から開発までを遂行する実務力です。第二に、学習意欲と適応力で、新しい技術や知見を素早く取り込み実装に反映する姿勢を持っています。
+                            </p>
+                        </section>
                     </div>
                 </article>
             </div>
@@ -54,55 +56,191 @@
         <section class="section">
             <div class="container">
                 <article class="card">
-                    <h2>大学での研究活動</h2>
-                    <div class="activity-section">
-                        <h3>研究テーマ</h3>
-                        <p></p>
+                    <h2 id="circle-activity">ゲームサークルとしての活動</h2>
+                    <p class="summary-lead">
+                        信州大学公認ゲーム制作サークルであるSEAP（Shinshu Electronic Arts Production）に2022年から在籍。2024年度は代表を務める一方、プロジェクトごとにプロジェクトリーダー／プログラム班リーダーを複数回担当し、組織運営と開発の推進の両面で貢献しました。
+                    </p>
+
+                    <div class="role-grid">
+                        <section class="role-card">
+                            <h3>代表としての経験</h3>
+                            <p>
+                                2024年度に代表を務め、サークル全体の運営と対外対応を統括しました。定例会議の議題づくりと進行を行い、意思決定の透明性とスピードを向上。活動テンプレートや運用ルールを策定してプロジェクト開始から運用までの手順を標準化し、未習熟者向けマニュアルを作成して参加後に慣れるまでの時間を短縮しました。学内外イベントの企画・運営も統括し、サークルの継続性と参加率向上に寄与。組織基盤の安定化とメンバー育成の仕組み化を実現しました。
+                            </p>
+                            <ul class="list feature-list compact-list">
+                                <li>定例会議の運用改善による意思決定の迅速化</li>
+                                <li>活動テンプレート・運用ルールの策定による立ち上げ標準化</li>
+                                <li>未習熟者向けマニュアル作成による立ち上がり時間の短縮</li>
+                            </ul>
+                        </section>
+
+                        <section class="role-card">
+                            <h3>プロジェクトリーダー／プログラム班リーダーとしての経験</h3>
+                            <p>
+                                代表職とは別に、プロジェクト単位でプロジェクトリーダーやプログラム班リーダーを複数回担当しました。プログラム班リーダーとして、ゲーム全体の進め方（遊びの流れ・主要機能）を決め、中心となる機能の実装を主導。担当ごとの作業分担とつなぎ方を明確にし、複数人での開発を進めやすい形に整えました。Gitの運用、コードレビュー、統合テストの手順も導入してビルドの安定化を図り、実装ガイドやサンプルコードでメンバー実装を支援しました。技術基盤を整えつつ、短期での試作検証と安定した統合を両立させました。
+                            </p>
+                            <ul class="list feature-list compact-list">
+                                <li>遊びの流れ・主要機能の設計と試作実装を主導</li>
+                                <li>作業分担と機能のつなぎ方を定義し、並行開発を円滑化</li>
+                                <li>Git運用・コードレビュー・統合テストの運用ルール導入</li>
+                                <li>実装ガイド・サンプルコードによるナレッジ共有と技術指導</li>
+                            </ul>
+                        </section>
                     </div>
-                    <div class="activity-section">
-                        <h3>取り組み内容</h3>
-                        <ul class="list">
-                            <li></li>
-                            <li></li>
-                        </ul>
-                    </div>
-                    <div class="activity-section">
-                        <h3>研究の動機・目的</h3>
-                        <ul class="list">
-                            <li></li>
-                            <li></li>
-                        </ul>
-                    </div>
-                    <div class="activity-section">
-                        <h3>学んだこと</h3>
-                        <p></p>
+
+                    <ul class="list card-bullet-list">
+                        <li>得られたスキル: 組織運営力、会議進行力、設計力、統合運用力、共同開発力</li>
+                    </ul>
+
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <article class="card">
+                    <h2 id="research-activity">大学での研究活動</h2>
+                    <p class="summary-lead">
+                        研究テーマは、エージェントに第三者との会話に基づく「経験」を与えることで、利用者がエージェントに心を感じるかを検証し、サービス全体の体験価値向上につながるかを評価することです。現在は実験計画と実装準備の段階です。
+                    </p>
+
+                    <div class="research-flow">
+                        <section class="research-step">
+                            <h3>1. 背景と研究課題</h3>
+                            <p>
+                                研究分野は、情報分野と心理学分野の融合領域である HAI（Human-Agent Interaction）です。既存の研究では、利用者がエージェントに心を感じる主な要因には「経験（Experience）」と「agency（行為主体性）」が重要とされています。本研究では、「主体性」がすでに認められているエージェントに対して、外部から「経験」を操作したときの効果を検証する計画です。
+                            </p>
+                        </section>
+
+                        <section class="research-step">
+                            <h3>2. 方法と使用技術</h3>
+                            <p>
+                                ゲーム空間を含む対話体験環境で、エージェントが第三者会話を参照する条件と参照しない条件を比較する予定です。参加者はクラウドソーシングで募集し、対話ログと事後アンケートを組み合わせて、経験付与が心の知覚と体験価値に与える影響を評価する計画です。
+                            </p>
+                            <ul class="list feature-list compact-list">
+                                <li>使用技術: Unity、LLM、対話ログ収集基盤、アンケート評価基盤</li>
+                                <li>担当範囲: 記憶設計、検索戦略、発話生成フロー実装、実験設計、評価運用</li>
+                            </ul>
+                        </section>
+
+                        <section class="research-step">
+                            <h3>3. 計画している検証と想定される応用</h3>
+                            <p>
+                                本研究では、主体性が備わったエージェントに経験を付与した際に、心の知覚がどの程度変化するかを検証する予定です。特に、短いエピソード記憶をどのタイミングで参照するかが、自然さと経験らしさにどう影響するかを重点的に評価します。
+                            </p>
+                            <ul class="list card-bullet-list">
+                                <li>検証観点: 記憶保存方式、感情ラベル・優先度による参照制御、発話テンプレートと生成ルールの組み合わせ</li>
+                                <li>想定する応用先: カスタマーサポート、教育アプリ、ヘルスケア支援、ゲームNPC設計</li>
+                            </ul>
+                        </section>
+
+                        <section class="research-step">
+                            <h3>4. 現在の進捗と今後の展望</h3>
+                            <p>
+                                現在は、実験計画の詳細化と実装準備を進めている段階です。今後は条件比較実験の実施、長期効果の検証、実サービスでのABテストを段階的に進め、対話体験設計に活用できるガイドラインとして整理していきます。
+                            </p>
+                        </section>
                     </div>
                 </article>
             </div>
         </section>
 
         <section class="section">
-            <div class="container grid-two">
+            <div class="container">
                 <article class="card">
-                    <h2>スキル一覧</h2>
-                    <ul class="list">
-                        <li>Python</li>
-                        <li>C#</li>
-                        <li>Unity</li>
-                        <li>Blender</li>
-                        <li>Java</li>
-                        <li>C++</li>
-                        <li>Rust</li>
-                        <li>HTML / CSS / JavaScript</li>
-                        <li>Git / GitHub</li>
-                    </ul>
-                </article>
-                <article class="card">
-                    <h2>得意な業種・制作スタイル</h2>
-                    <ul class="list">
-                        <li></li>
-                        <li></li>
-                    </ul>
+                    <h2 id="skills">スキル一覧</h2>
+
+                    <div class="skill-category">
+                        <h3>言語</h3>
+                        <ul class="skill-list">
+                            <li>
+                                <p class="skill-name">Python</p>
+                                <p class="skill-meta">主な利用先: ゲーム開発、アプリ開発、機械学習の学習</p>
+                                <p class="skill-meta">最もよく使う言語で、日常的に活用</p>
+                                <p class="skill-meta">経験年数: 5年</p>
+                            </li>
+                            <li>
+                                <p class="skill-name">C#</p>
+                                <p class="skill-meta">主な利用先: Unityでのゲーム実装</p>
+                                <p class="skill-meta">サークル活動と個人制作で継続利用</p>
+                                <p class="skill-meta">経験年数: 4年</p>
+                            </li>
+                            <li>
+                                <p class="skill-name">JavaScript</p>
+                                <p class="skill-meta">主な利用先: Webページの動的表現・機能実装</p>
+                                <p class="skill-meta">サイト制作で実装経験を積んでいる</p>
+                                <p class="skill-meta">経験年数: 2年</p>
+                            </li>
+                            <li>
+                                <p class="skill-name">HTML / CSS</p>
+                                <p class="skill-meta">主な利用先: Webサイト制作、UIレイアウト設計</p>
+                                <p class="skill-meta">フロントエンドの基礎として継続利用</p>
+                                <p class="skill-meta">経験年数: 2年</p>
+                            </li>
+                            <li>
+                                <p class="skill-name">Java</p>
+                                <p class="skill-meta">主な利用先: MinecraftのMod開発、Windowsアプリ開発</p>
+                                <p class="skill-meta">個人開発を通して学習を継続</p>
+                                <p class="skill-meta">経験年数: 2年</p>
+                            </li>
+                            <li>
+                                <p class="skill-name">Rust</p>
+                                <p class="skill-meta">主な利用先: 個人学習、基礎的な実装練習</p>
+                                <p class="skill-meta">注目をきっかけに学習を開始し、現在も勉強中</p>
+                                <p class="skill-meta">経験年数: 1年未満</p>
+                            </li>
+                            <li>
+                                <p class="skill-name">C / C++</p>
+                                <p class="skill-meta">主な利用先: 大学の講義・実習</p>
+                                <p class="skill-meta">言語基礎と実装の理解に活用</p>
+                                <p class="skill-meta">経験年数: 1年未満</p>
+                            </li>
+                            <li>
+                                <p class="skill-name">R</p>
+                                <p class="skill-meta">主な利用先: 大学での統計学習</p>
+                                <p class="skill-meta">統計を学ぶ際に習得</p>
+                                <p class="skill-meta">経験年数: 1年未満</p>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>フレームワーク</h3>
+                        <ul class="skill-list">
+                            <li>
+                                <p class="skill-name">Unity</p>
+                                <p class="skill-meta">主な利用先: サークル活動、個人でのゲーム制作</p>
+                                <p class="skill-meta">ゲーム開発の中心ツールとして利用</p>
+                                <p class="skill-meta">経験年数: 4年</p>
+                            </li>
+                            <li>
+                                <p class="skill-name">Node.js</p>
+                                <p class="skill-meta">主な利用先: Webアプリ開発、開発環境の実行基盤</p>
+                                <p class="skill-meta">実践を通して現在も学習中</p>
+                                <p class="skill-meta">経験年数: 1年未満</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>関連サービス</h3>
+                        <ul class="skill-list">
+                            <li>
+                                <p class="skill-name">Git / GitHub</p>
+                                <p class="skill-meta">主な利用先: ソースコード管理、チーム開発</p>
+                                <p class="skill-meta">バージョン管理と共有に活用</p>
+                                <p class="skill-meta">経験年数: 5年</p>
+                            </li>
+                            <li>
+                                <p class="skill-name">Blender</p>
+                                <p class="skill-meta">主な利用先: 3Dモデル制作、モデル調整</p>
+                                <p class="skill-meta">ゲーム制作に必要な範囲から学習を開始</p>
+                                <p class="skill-meta">経験年数: 1年未満</p>
+                            </li>
+
+                        </ul>
+                    </div>
                 </article>
             </div>
         </section>
