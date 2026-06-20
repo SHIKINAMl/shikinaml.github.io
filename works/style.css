@@ -100,6 +100,33 @@
     justify-content: center;
 }
 
+.modal-shell {
+    position: relative;
+    z-index: 1001;
+    width: 90%;
+    max-width: 1040px;
+    display: grid;
+    gap: 0.45rem;
+}
+
+.modal-topbar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0 0.25rem;
+}
+
+.modal-title {
+    margin: 0;
+    font-size: 1.85rem;
+    line-height: 1.25;
+    font-weight: 800;
+    color: #f7fbff;
+    letter-spacing: 0.01em;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
 .modal-overlay {
     position: absolute;
     top: 0;
@@ -110,20 +137,16 @@
 }
 
 .modal-content {
-    position: relative;
     background: #fff;
     border-radius: 12px;
     padding: 32px;
-    max-width: 1040px;
-    width: 90%;
     max-height: 80vh;
     overflow-y: auto;
-    z-index: 1001;
 }
 
 .work-modal-layout {
     display: grid;
-    grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+    grid-template-columns: minmax(340px, 460px) minmax(0, 1fr);
     gap: 1.6rem;
     align-items: start;
     grid-template-areas:
@@ -147,12 +170,25 @@
     display: grid;
     gap: 0.2rem;
     grid-area: main;
+    padding-top: 0;
 }
-
 .work-modal-meta {
     display: grid;
     gap: 0.2rem;
     grid-area: meta;
+}
+
+.work-modal-meta-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+    align-items: start;
+}
+
+.work-modal-meta-column {
+    display: grid;
+    gap: 0.6rem;
+    align-content: start;
 }
 
 .work-modal-top h2 {
@@ -170,7 +206,7 @@
     display: block;
     width: 100%;
     height: auto;
-    max-height: 420px;
+    max-height: 560px;
     object-fit: cover;
 }
 
@@ -181,29 +217,37 @@
 .work-modal-pair-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-    margin-bottom: 16px;
+    gap: 0.8rem;
+    margin-bottom: 0;
+    align-items: start;
+}
+
+.work-modal-role {
+    margin-bottom: 0;
+}
+
+.work-modal-role p {
+    margin-bottom: 0;
 }
 
 .modal-close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
+    background: rgba(8, 18, 28, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 999px;
+    font-size: 1.25rem;
     cursor: pointer;
-    color: #666;
+    color: #ffffff;
     padding: 0;
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .modal-close:hover {
-    color: #000;
+    background: rgba(8, 18, 28, 0.72);
 }
 
 #modalBody h2 {
@@ -225,7 +269,18 @@
 }
 
 .work-modal-section {
-    margin-bottom: 16px;
+    margin-bottom: 0;
+}
+
+.work-modal-list {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.45rem;
+}
+
+.work-modal-list li {
+    line-height: 1.6;
 }
 
 .work-modal-tags {
@@ -274,7 +329,15 @@
 
     .modal-content {
         padding: 20px;
+    }
+
+    .modal-shell {
         width: 95%;
+        gap: 0.4rem;
+    }
+
+    .modal-title {
+        font-size: 1.35rem;
     }
 
     .work-modal-layout {
@@ -290,6 +353,19 @@
     .work-modal-meta {
         display: grid;
         gap: 0.9rem;
+    }
+
+    .work-modal-main {
+        padding-top: 0;
+    }
+
+    .work-modal-meta-columns {
+        grid-template-columns: 1fr;
+        gap: 0.7rem;
+    }
+
+    .work-modal-meta-column {
+        gap: 0.5rem;
     }
 
     .work-modal-pair-grid {

@@ -40,23 +40,40 @@ async function loadWorks() {
 }
 
 function normalizeWorkItem(raw, index) {
+    const roleList = parseList(raw.role);
     const techList = parseList(raw.tech);
     const tagList = parseList(raw.tags);
     const linkList = normalizeLinks(raw.links);
+    const imageSrc = normalizeImageSource(raw.imageUrl);
     return {
         id: index + 1,
         title: String(raw.title || "Untitled"),
         summary: String(raw.summary || ""),
         story: String(raw.story || ""),
         craft: String(raw.craft || ""),
-        role: String(raw.role || ""),
+        role: roleList,
         tech: techList,
         links: linkList,
         tags: tagList,
         url: String(raw.url || ""),
-        imageUrl: String(raw.imageUrl || ""),
+        imageUrl: imageSrc,
         date: String(raw.date || ""),
     };
+}
+
+function normalizeImageSource(value) {
+    const raw = String(value || "").trim();
+    if (!raw) {
+        return "";
+    }
+
+    // Keep explicit URLs for backward compatibility.
+    if (/^https?:\/\//i.test(raw)) {
+        return raw;
+    }
+
+    // Treat non-URL values as Google Drive file IDs.
+    return `https://drive.google.com/thumbnail?id=${encodeURIComponent(raw)}&sz=w1200`;
 }
 
 function parseList(value) {
@@ -136,14 +153,16 @@ function renderWorkPanels() {
 function openModal(work) {
     const modal = document.getElementById("workModal");
     const modalBody = document.getElementById("modalBody");
-    if (!modal || !modalBody) {
+    const modalTitle = document.getElementById("modalTitle");
+    if (!modal || !modalBody || !modalTitle) {
         return;
     }
+
+    modalTitle.textContent = work.title;
 
     modalBody.innerHTML = `
         <div class="work-modal-layout">
             <div class="work-modal-top">
-                <h2>${escapeHtml(work.title)}</h2>
                 ${
                     work.imageUrl
                         ? `
@@ -156,14 +175,11 @@ function openModal(work) {
             </div>
             <div class="work-modal-main">
                 ${work.summary ? `<div class="work-modal-section"><strong>概要</strong><p>${escapeHtml(work.summary)}</p></div>` : ""}
-                ${work.story ? `<div class="work-modal-section"><strong>制作にあたって</strong><p>${escapeHtml(work.story)}</p></div>` : ""}
-                ${work.craft ? `<div class="work-modal-section"><strong>工夫やこだわり</strong><p>${escapeHtml(work.craft)}</p></div>` : ""}
+                ${renderNarrativeSection("工夫やこだわり", work.craft, { alwaysShow: true })}
+                ${renderNarrativeSection("制作にあたって", work.story, { alwaysShow: true })}
+
             </div>
             <div class="work-modal-meta">
-                <div class="work-modal-pair-grid">
-                    ${work.role ? `<div class="work-modal-section"><strong>担当範囲</strong><p>${escapeHtml(work.role)}</p></div>` : ""}
-                    ${work.date ? `<div class="work-modal-section"><strong>開発期間</strong><p>${escapeHtml(work.date)}</p></div>` : ""}
-                </div>
                 ${
                     work.links.length
                         ? `<div class="work-modal-section"><strong>リンク</strong><div class="work-link-list">${work.links
@@ -177,6 +193,16 @@ function openModal(work) {
                               .join("")}</div></div>`
                         : ""
                 }
+                <div class="work-modal-pair-grid">
+                    ${work.date ? `<div class="work-modal-section"><strong>開発期間</strong><p>${escapeHtml(work.date)}</p></div>` : ""}
+                    ${
+                        work.role.length
+                            ? `<div class="work-modal-section work-modal-role"><strong>担当</strong><div class="work-modal-tags">${work.role
+                                  .map((role) => `<span class="work-panel-tag">${escapeHtml(role)}</span>`)
+                                  .join("")}</div></div>`
+                            : ""
+                    }
+                </div>
                 <div class="work-modal-pair-grid">
                     ${
                         work.tech.length
@@ -234,5 +260,35 @@ function escapeHtml(value) {
         .replace(/>/g, "&gt;")
         .replace(/\"/g, "&quot;")
         .replace(/'/g, "&#39;");
+}
+
+function renderNarrativeSection(title, text, options = {}) {
+    const { alwaysShow = false, emptyText = "未設定" } = options;
+    const normalized = String(text || "").trim();
+    if (!normalized) {
+        if (!alwaysShow) {
+            return "";
+        }
+
+        return `<div class="work-modal-section"><strong>${escapeHtml(title)}</strong><p>${escapeHtml(emptyText)}</p></div>`;
+    }
+
+    const items = normalized
+        .split(/\r?\n+/)
+        .map((item) => item.trim())
+        .filter(Boolean);
+
+    if (items.length <= 1) {
+        return `<div class="work-modal-section"><strong>${escapeHtml(title)}</strong><p>${escapeHtml(normalized)}</p></div>`;
+    }
+
+    return `
+        <div class="work-modal-section">
+            <strong>${escapeHtml(title)}</strong>
+            <ul class="work-modal-list">
+                ${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
+            </ul>
+        </div>
+    `;
 }
 
