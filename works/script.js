@@ -412,7 +412,8 @@ async function startPlay(section) {
     const fit = () => {
         const isFullscreen = document.fullscreenElement === stage;
         const availableWidth = stage.clientWidth;
-        const availableHeight = isFullscreen ? stage.clientHeight : Infinity;
+        // 通常表示では縦長（4:3 など）のゲームがモーダルからはみ出さないよう、画面の高さの 65% までに抑える
+        const availableHeight = isFullscreen ? stage.clientHeight : window.innerHeight * 0.65;
         const scale = Math.min(availableWidth / size.width, availableHeight / size.height);
         iframe.style.transform = `scale(${scale})`;
         iframe.style.left = `${Math.max(0, (availableWidth - size.width * scale) / 2)}px`;
@@ -425,6 +426,7 @@ async function startPlay(section) {
     const observer = new ResizeObserver(fit);
     observer.observe(stage);
     document.addEventListener("fullscreenchange", fit);
+    window.addEventListener("resize", fit);
     fit();
 
     section.classList.add("is-playing");
@@ -443,6 +445,7 @@ function stopPlay() {
     const { section, stage, observer, fit } = playState;
     observer.disconnect();
     document.removeEventListener("fullscreenchange", fit);
+    window.removeEventListener("resize", fit);
     if (document.fullscreenElement === stage && document.exitFullscreen) {
         document.exitFullscreen().catch(() => {});
     }
