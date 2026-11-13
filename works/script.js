@@ -58,7 +58,40 @@ function normalizeWorkItem(raw, index) {
         url: String(raw.url || ""),
         imageUrl: imageSrc,
         date: String(raw.date || ""),
+        playUrl: detectPlayUrl(raw.embedUrl, linkList),
     };
+}
+
+// GitHub Pages で公開されている作品はポートフォリオ内で遊べるようにする。
+// シートに embedUrl 列があればそれを優先し、なければリンクの中から *.github.io の URL を探す。
+function detectPlayUrl(explicitUrl, links) {
+    const candidates = [String(explicitUrl || "").trim(), ...links.map((link) => String(link.url || "").trim())];
+
+    for (const candidate of candidates) {
+        if (!candidate) {
+            continue;
+        }
+
+        let url;
+        try {
+            url = new URL(candidate);
+        } catch (error) {
+            continue;
+        }
+
+        const host = url.hostname.toLowerCase();
+        const isPages = url.protocol === "https:" && host.endsWith(".github.io");
+        const isPortfolioRoot = url.pathname === "/" || url.pathname === "";
+        if (isPages && !isPortfolioRoot) {
+            url.hostname = host;
+            if (!url.pathname.endsWith("/") && !/\.[a-z0-9]+$/i.test(url.pathname)) {
+                url.pathname += "/";
+            }
+            return url.toString();
+        }
+    }
+
+    return "";
 }
 
 function normalizeImageSource(value) {
@@ -150,6 +183,7 @@ function renderWorkPanels() {
                                 ? `<img src="${escapeHtml(work.imageUrl)}" alt="${escapeHtml(work.title)} のサムネイル" loading="lazy" />`
                                 : "画像なし"
                         }
+                        ${work.playUrl ? `<span class="work-panel-badge">ブラウザで遊べる</span>` : ""}
                     </div>
                     <div class="work-panel-body">
                         <div class="work-panel-title">${escapeHtml(work.title)}</div>
@@ -194,9 +228,11 @@ function openModal(work, trigger = null) {
         return;
     }
 
+    stopPlay();
     modalTitle.textContent = work.title;
 
     modalBody.innerHTML = `
+        ${work.playUrl ? renderPlaySection(work) : ""}
         <div class="work-modal-layout">
             <div class="work-modal-top">
                 ${
@@ -263,10 +299,162 @@ function openModal(work, trigger = null) {
     modal.style.display = "flex";
     document.body.classList.add("modal-open");
 
+    const playSection = modalBody.querySelector(".work-play");
+    if (playSection) {
+        setupPlaySection(playSection);
+    }
+
     const closeBtn = document.getElementById("modalClose");
     if (closeBtn) {
         closeBtn.focus();
     }
+}
+
+/* ---------- ブラウザで遊ぶ（GitHub Pages の埋め込み） ---------- */
+
+const DEFAULT_GAME_SIZE = { width: 960, height: 600 };
+const gameSizeCache = new Map();
+let playState = null;
+
+function renderPlaySection(work) {
+    const url = escapeHtml(work.playUrl);
+    return `
+        <section class="work-play" data-play-url="${url}" aria-label="${escapeHtml(work.title)} をブラウザで遊ぶ">
+            <div class="work-play-stage" hidden></div>
+            <div class="work-play-bar">
+                <div class="work-play-info">
+                    <strong>ブラウザで遊ぶ</strong>
+                    <span class="work-play-note">Unity WebGL 版です。読み込みに少し時間がかかります（PC 推奨）。</span>
+                </div>
+                <div class="work-play-actions">
+                    <button class="work-play-button is-primary" type="button" data-play-action="start">▶ プレイ開始</button>
+                    <button class="work-play-button" type="button" data-play-action="fullscreen" hidden>全画面</button>
+                    <button class="work-play-button" type="button" data-play-action="stop" hidden>停止</button>
+                    <a class="work-play-button" href="${url}" target="_blank" rel="noopener noreferrer">別タブで開く</a>
+                </div>
+            </div>
+        </section>
+    `;
+}
+
+function setupPlaySection(section) {
+    section.querySelectorAll("[data-play-action]").forEach((button) => {
+        button.addEventListener("click", () => {
+            const action = button.dataset.playAction;
+            if (action === "start") {
+                startPlay(section);
+            } else if (action === "stop") {
+                stopPlay();
+            } else if (action === "fullscreen") {
+                const stage = section.querySelector(".work-play-stage");
+                if (stage && stage.requestFullscreen) {
+                    stage.requestFullscreen().catch(() => {});
+                }
+            }
+        });
+    });
+}
+
+// Unity の WebGL テンプレートはキャンバスを固定ピクセルで置くため、ページからサイズを読み取って縮小表示する
+async function fetchGameSize(url) {
+    if (gameSizeCache.has(url)) {
+        return gameSizeCache.get(url);
+    }
+
+    let size = DEFAULT_GAME_SIZE;
+    try {
+        const response = await fetch(url);
+        const html = await response.text();
+        const match = html.match(/<canvas[^>]*id=["']?unity-canvas["']?[^>]*>/i);
+        if (match) {
+            const width = Number((match[0].match(/width=["']?(\d+)/i) || [])[1]);
+            const height = Number((match[0].match(/height=["']?(\d+)/i) || [])[1]);
+            if (width > 0 && height > 0) {
+                size = { width, height };
+            }
+        }
+    } catch (error) {
+        console.warn("ゲームのサイズを取得できなかったため既定値を使います", error);
+    }
+
+    gameSizeCache.set(url, size);
+    return size;
+}
+
+async function startPlay(section) {
+    stopPlay();
+
+    const url = section.dataset.playUrl;
+    const stage = section.querySelector(".work-play-stage");
+    if (!url || !stage) {
+        return;
+    }
+
+    section.classList.add("is-loading");
+    stage.hidden = false;
+    stage.innerHTML = `<p class="work-play-loading">ゲームを読み込んでいます...</p>`;
+
+    const size = await fetchGameSize(url);
+
+    const iframe = document.createElement("iframe");
+    iframe.src = url;
+    iframe.title = "ゲーム画面";
+    iframe.width = String(size.width);
+    iframe.height = String(size.height);
+    iframe.setAttribute("scrolling", "no");
+    iframe.setAttribute("allow", "fullscreen; autoplay; gamepad");
+    iframe.setAttribute("allowfullscreen", "");
+    iframe.addEventListener("load", () => section.classList.remove("is-loading"));
+
+    stage.innerHTML = "";
+    stage.appendChild(iframe);
+
+    const fit = () => {
+        const isFullscreen = document.fullscreenElement === stage;
+        const availableWidth = stage.clientWidth;
+        const availableHeight = isFullscreen ? stage.clientHeight : Infinity;
+        const scale = Math.min(availableWidth / size.width, availableHeight / size.height);
+        iframe.style.transform = `scale(${scale})`;
+        iframe.style.left = `${Math.max(0, (availableWidth - size.width * scale) / 2)}px`;
+        iframe.style.top = isFullscreen ? `${Math.max(0, (availableHeight - size.height * scale) / 2)}px` : "0px";
+        if (!isFullscreen) {
+            stage.style.height = `${size.height * scale}px`;
+        }
+    };
+
+    const observer = new ResizeObserver(fit);
+    observer.observe(stage);
+    document.addEventListener("fullscreenchange", fit);
+    fit();
+
+    section.classList.add("is-playing");
+    section.querySelector('[data-play-action="start"]').hidden = true;
+    section.querySelector('[data-play-action="stop"]').hidden = false;
+    section.querySelector('[data-play-action="fullscreen"]').hidden = !stage.requestFullscreen;
+
+    playState = { section, stage, observer, fit };
+}
+
+function stopPlay() {
+    if (!playState) {
+        return;
+    }
+
+    const { section, stage, observer, fit } = playState;
+    observer.disconnect();
+    document.removeEventListener("fullscreenchange", fit);
+    if (document.fullscreenElement === stage && document.exitFullscreen) {
+        document.exitFullscreen().catch(() => {});
+    }
+
+    stage.innerHTML = "";
+    stage.style.height = "";
+    stage.hidden = true;
+    section.classList.remove("is-playing", "is-loading");
+    section.querySelector('[data-play-action="start"]').hidden = false;
+    section.querySelector('[data-play-action="stop"]').hidden = true;
+    section.querySelector('[data-play-action="fullscreen"]').hidden = true;
+    playState = null;
 }
 
 function closeModal() {
@@ -275,6 +463,7 @@ function closeModal() {
         return;
     }
 
+    stopPlay();
     modal.style.display = "none";
     document.body.classList.remove("modal-open");
 

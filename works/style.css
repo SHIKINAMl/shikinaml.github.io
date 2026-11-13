@@ -59,6 +59,21 @@
     display: block;
 }
 
+.work-panel-badge {
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
+    z-index: 1;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.5;
+    box-shadow: 0 4px 10px rgba(15, 118, 110, 0.3);
+}
+
 .work-panel-body {
     display: grid;
     gap: 0.5rem;
@@ -225,6 +240,113 @@
     padding: clamp(1.2rem, 3vw, 2rem);
     max-height: 80vh;
     overflow-y: auto;
+}
+
+/* Play in browser */
+.work-play {
+    display: grid;
+    gap: 0.8rem;
+    margin-bottom: 1.4rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--line-soft);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius-md);
+    background: var(--paper-soft);
+}
+
+.work-play-stage {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    background: #231f20;
+}
+
+.work-play-stage:fullscreen {
+    border-radius: 0;
+    background: #000;
+}
+
+.work-play-stage iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+    transform-origin: top left;
+    background: #231f20;
+}
+
+.work-play-loading {
+    margin: 0;
+    padding: 3rem 1rem;
+    color: #e9e0d7;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.work-play-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem 1rem;
+}
+
+.work-play-info {
+    display: grid;
+    gap: 0.1rem;
+}
+
+#modalBody .work-play-info strong {
+    margin: 0;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+}
+
+.work-play-note {
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+.work-play-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.work-play-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--accent);
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.work-play-button:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+}
+
+.work-play-button.is-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
+.work-play-button.is-primary:hover {
+    background: var(--accent-strong);
+    border-color: var(--accent-strong);
+}
+
+.work-play-button[hidden] {
+    display: none;
 }
 
 .work-modal-layout {

@@ -72,6 +72,15 @@ GitHub|https://github.com/example/repo, Download|https://example.com/file.zip
 
 Each item is separated by a comma. Use a pipe between label and URL.
 
+### Play in browser (GitHub Pages embed)
+
+- Works whose `links` contain a `https://<user>.github.io/<repo>/` URL get a
+  "ブラウザで遊べる" badge, and the modal can run the game in an iframe.
+- The front-end reads the Unity WebGL page, takes the `unity-canvas` size and
+  scales the iframe to fit, so no extra column is required.
+- Optional: add an `embedUrl` column to point at a different page than the
+  links. It takes priority over the links when present.
+
 ## Deployment notes
 
 1. Paste your spreadsheet ID into `Code.gs`.
