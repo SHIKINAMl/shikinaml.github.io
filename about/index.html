@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About | Shikinami Portfolio</title>
     <meta name="description" content="自己紹介、経歴、スキル、得意分野を紹介するページです。" />
+    <link rel="icon" type="image/svg+xml" href="../common/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" />
     <link rel="stylesheet" href="../common/css/base.css" />
     <link rel="stylesheet" href="style.css" />
 </head>
@@ -24,7 +28,7 @@
                 </nav>
                 <article class="card" id="profile-overview">
                     <p class="summary-lead">
-                        敷波 佳翼（しきなみ けいすけ）と申します。志望として、UXを重視したサービス開発やゲーム開発に携わりたいと考えています。情報工学を専攻し、アルゴリズムやシステム設計の基礎を学ぶと同時に、学生サークルでの共同開発や対話エージェントに関する研究を通じて、設計から実装・評価まで一貫して手を動かす経験を積んできました。企業で得られる学びを自分の創作やプロダクト設計に還元し、利用者にとって意味のある体験を生み出すことを目指しています。
+                        敷波 佳翼（しきなみ けいすけ）と申します。志望として、UXを重視したサービス開発やゲーム開発に携わりたいと考えています。情報工学を専攻し、アルゴリズムやシステム設計の基礎を学ぶと同時に、学生サークルでの共同開発や人とゲームNPCの関わりに関する研究を通じて、設計から実装・評価まで一貫して手を動かす経験を積んできました。企業で得られる学びを自分の創作やプロダクト設計に還元し、利用者にとって意味のある体験を生み出すことを目指しています。
                     </p>
 
                     <div class="profile-flow">
@@ -101,43 +105,43 @@
                 <article class="card">
                     <h2 id="research-activity">大学での研究活動</h2>
                     <p class="summary-lead">
-                        研究テーマは、エージェントに第三者との会話に基づく「経験」を与えることで、利用者がエージェントに心を感じるかを検証し、サービス全体の体験価値向上につながるかを評価することです。現在は実験計画と実装準備の段階です。
+                        研究テーマは、ゲーム内のNPC（ノンプレイヤーキャラクター）に備わる「エージェンシー（行為主体性）」を操作することで、プレイヤーがNPCに向ける冷遇を減らせるか、そしてゲーム体験がどう変わるかを検証することです。エージェントの振る舞いの設計を通じて、人がAIをどう扱うかを変えられるかを問う研究で、現在は予備実験に向けてゲームの改造と実装を進めています。
                     </p>
 
                     <div class="research-flow">
                         <section class="research-step">
                             <h3>1. 背景と研究課題</h3>
                             <p>
-                                研究分野は、情報分野と心理学分野の融合領域である HAI（Human-Agent Interaction）です。既存の研究では、利用者がエージェントに心を感じる主な要因には「経験（Experience）」と「agency（行為主体性）」が重要とされています。本研究では、「主体性」がすでに認められているエージェントに対して、外部から「経験」を操作したときの効果を検証する計画です。
+                                研究分野は、情報学と心理学の融合領域である HAI（Human-Agent Interaction）です。先行研究では、人はロボットやエージェントに対して、同じ状況で人間相手には取らない振る舞い（不公平な提案を受け入れる、責任を問わない、など）をすることが報告されています。本研究ではこの「人間相手の振る舞いからの乖離」を冷遇と定義し直し、その原因を、人がAIに対して持つ期待（スキーマ）と人間に対する期待のずれにあると捉えます。そのうえで、心の知覚理論でいう「エージェンシー」をNPCに持たせることで、ゲーム内の経験を通じてこの乖離を縮められるかを検証します。
                             </p>
                         </section>
 
                         <section class="research-step">
                             <h3>2. 方法と使用技術</h3>
                             <p>
-                                ゲーム空間を含む対話体験環境で、エージェントが第三者会話を参照する条件と参照しない条件を比較する予定です。参加者はクラウドソーシングで募集し、対話ログと事後アンケートを組み合わせて、経験付与が心の知覚と体験価値に与える影響を評価する計画です。
+                                オープンソースのJRPG「Godot Open RPG」を改造し、相棒NPCと一緒に町・家・森を探索する約20分のシナリオを制作します。NPCのエージェンシーは、台詞と役割分担の決め方を中心に高・低の2条件に操作し、記憶・計画・思考・コミュニケーションといった能力の有無として表現します。NPCの成果や情報量、難易度といった機能面は条件間でそろえ、エージェンシーによらない差が生じないように統制します。実験はクラウドソーシングで募集した参加者がブラウザ上でプレイする参加者間計画で実施し、行動ログはサーバーに送信して記録します。
                             </p>
                             <ul class="list feature-list compact-list">
-                                <li>使用技術: Unity、LLM、対話ログ収集基盤、アンケート評価基盤</li>
-                                <li>担当範囲: 記憶設計、検索戦略、発話生成フロー実装、実験設計、評価運用</li>
+                                <li>使用技術: Godot 4（GDScript）、Dialogic、Webエクスポート、ログ収集サーバー、LLM（開発時の台詞生成）、R（統計分析）</li>
+                                <li>担当範囲: 文献調査、実験デザイン、ゲーム改造とシナリオ設計、評価指標の選定・翻訳、ログ基盤の構築、分析計画</li>
                             </ul>
                         </section>
 
                         <section class="research-step">
-                            <h3>3. 計画している検証と想定される応用</h3>
+                            <h3>3. 検証の設計と想定される応用</h3>
                             <p>
-                                本研究では、主体性が備わったエージェントに経験を付与した際に、心の知覚がどの程度変化するかを検証する予定です。特に、短いエピソード記憶をどのタイミングで参照するかが、自然さと経験らしさにどう影響するかを重点的に評価します。
+                                冷遇はアンケートだけでなく行動で測ります。シナリオには「報酬の分配」「罠からの救出」「閉まる門で待つか」という3つの場面を組み込み、プレイヤーの選択とためらいの時間を記録したうえで、プレイ後に「相棒が人間だったらどうしたか」を尋ね、その差を冷遇の指標とします。ゲーム体験は PXI（Player Experience Inventory）、NPCの人間らしさの知覚は Godspeed 質問紙とエージェンシーの評価項目で測定し、機能面が条件間で等しいことは等価性検定で確認します。
                             </p>
                             <ul class="list card-bullet-list">
-                                <li>検証観点: 記憶保存方式、感情ラベル・優先度による参照制御、発話テンプレートと生成ルールの組み合わせ</li>
-                                <li>想定する応用先: カスタマーサポート、教育アプリ、ヘルスケア支援、ゲームNPC設計</li>
+                                <li>検証観点: NPCの人間らしさの知覚、冷遇行動の変化、没入感と自律感のトレードオフ、機能面の等価性</li>
+                                <li>想定する応用先: ゲームNPCの設計指針、AIアシスタントとの関係設計、エージェントへの攻撃的な扱いの抑制</li>
                             </ul>
                         </section>
 
                         <section class="research-step">
                             <h3>4. 現在の進捗と今後の展望</h3>
                             <p>
-                                現在は、実験計画の詳細化と実装準備を進めている段階です。今後は条件比較実験の実施、長期効果の検証、実サービスでのABテストを段階的に進め、対話体験設計に活用できるガイドラインとして整理していきます。
+                                文献調査と評価指標の選定、実験デザインの検討を終え、現在はNPCの振る舞いの候補を比較しながら、予備実験用の簡易版ゲームを実装しています。まず簡易版で予備実験を行って操作と測定の妥当性を確かめ、その結果をもとに、NPCの役割ごとに条件を変えた本実験を段階的に進める予定です。
                             </p>
                         </section>
                     </div>
@@ -154,52 +158,68 @@
                         <h3>言語</h3>
                         <ul class="skill-list">
                             <li>
-                                <p class="skill-name">Python</p>
+                                <div class="skill-head">
+                                    <p class="skill-name">Python</p>
+                                    <span class="skill-years">5年</span>
+                                </div>
                                 <p class="skill-meta">主な利用先: ゲーム開発、アプリ開発、機械学習の学習</p>
                                 <p class="skill-meta">最もよく使う言語で、日常的に活用</p>
-                                <p class="skill-meta">経験年数: 5年</p>
                             </li>
                             <li>
-                                <p class="skill-name">C#</p>
+                                <div class="skill-head">
+                                    <p class="skill-name">C#</p>
+                                    <span class="skill-years">4年</span>
+                                </div>
                                 <p class="skill-meta">主な利用先: Unityでのゲーム実装</p>
                                 <p class="skill-meta">サークル活動と個人制作で継続利用</p>
-                                <p class="skill-meta">経験年数: 4年</p>
                             </li>
                             <li>
-                                <p class="skill-name">JavaScript</p>
+                                <div class="skill-head">
+                                    <p class="skill-name">JavaScript</p>
+                                    <span class="skill-years">2年</span>
+                                </div>
                                 <p class="skill-meta">主な利用先: Webページの動的表現・機能実装</p>
                                 <p class="skill-meta">サイト制作で実装経験を積んでいる</p>
-                                <p class="skill-meta">経験年数: 2年</p>
                             </li>
                             <li>
-                                <p class="skill-name">HTML / CSS</p>
+                                <div class="skill-head">
+                                    <p class="skill-name">HTML / CSS</p>
+                                    <span class="skill-years">2年</span>
+                                </div>
                                 <p class="skill-meta">主な利用先: Webサイト制作、UIレイアウト設計</p>
                                 <p class="skill-meta">フロントエンドの基礎として継続利用</p>
-                                <p class="skill-meta">経験年数: 2年</p>
                             </li>
                             <li>
-                                <p class="skill-name">Java</p>
+                                <div class="skill-head">
+                                    <p class="skill-name">Java</p>
+                                    <span class="skill-years">2年</span>
+                                </div>
                                 <p class="skill-meta">主な利用先: MinecraftのMod開発、Windowsアプリ開発</p>
                                 <p class="skill-meta">個人開発を通して学習を継続</p>
-                                <p class="skill-meta">経験年数: 2年</p>
                             </li>
                             <li>
-                                <p class="skill-name">Rust</p>
+                                <div class="skill-head">
+                                    <p class="skill-name">Rust</p>
+                                    <span class="skill-years">1年未満</span>
+                                </div>
                                 <p class="skill-meta">主な利用先: 個人学習、基礎的な実装練習</p>
                                 <p class="skill-meta">注目をきっかけに学習を開始し、現在も勉強中</p>
-                                <p class="skill-meta">経験年数: 1年未満</p>
                             </li>
                             <li>
-                                <p class="skill-name">C / C++</p>
+                                <div class="skill-head">
+                                    <p class="skill-name">C / C++</p>
+                                    <span class="skill-years">1年未満</span>
+                                </div>
                                 <p class="skill-meta">主な利用先: 大学の講義・実習</p>
                                 <p class="skill-meta">言語基礎と実装の理解に活用</p>
-                                <p class="skill-meta">経験年数: 1年未満</p>
                             </li>
                             <li>
-                                <p class="skill-name">R</p>
+                                <div class="skill-head">
+                                    <p class="skill-name">R</p>
+                                    <span class="skill-years">1年未満</span>
+                                </div>
                                 <p class="skill-meta">主な利用先: 大学での統計学習</p>
                                 <p class="skill-meta">統計を学ぶ際に習得</p>
-                                <p class="skill-meta">経験年数: 1年未満</p>
                             </li>
 
                         </ul>
@@ -209,16 +229,28 @@
                         <h3>フレームワーク</h3>
                         <ul class="skill-list">
                             <li>
-                                <p class="skill-name">Unity</p>
+                                <div class="skill-head">
+                                    <p class="skill-name">Unity</p>
+                                    <span class="skill-years">4年</span>
+                                </div>
                                 <p class="skill-meta">主な利用先: サークル活動、個人でのゲーム制作</p>
                                 <p class="skill-meta">ゲーム開発の中心ツールとして利用</p>
-                                <p class="skill-meta">経験年数: 4年</p>
                             </li>
                             <li>
-                                <p class="skill-name">Node.js</p>
+                                <div class="skill-head">
+                                    <p class="skill-name">Godot</p>
+                                    <span class="skill-years">1年未満</span>
+                                </div>
+                                <p class="skill-meta">主な利用先: 研究用ゲームの改造・シナリオ実装</p>
+                                <p class="skill-meta">研究の実験環境として使用中</p>
+                            </li>
+                            <li>
+                                <div class="skill-head">
+                                    <p class="skill-name">Node.js</p>
+                                    <span class="skill-years">1年未満</span>
+                                </div>
                                 <p class="skill-meta">主な利用先: Webアプリ開発、開発環境の実行基盤</p>
                                 <p class="skill-meta">実践を通して現在も学習中</p>
-                                <p class="skill-meta">経験年数: 1年未満</p>
                             </li>
                         </ul>
                     </div>
@@ -227,16 +259,20 @@
                         <h3>関連サービス</h3>
                         <ul class="skill-list">
                             <li>
-                                <p class="skill-name">Git / GitHub</p>
+                                <div class="skill-head">
+                                    <p class="skill-name">Git / GitHub</p>
+                                    <span class="skill-years">5年</span>
+                                </div>
                                 <p class="skill-meta">主な利用先: ソースコード管理、チーム開発</p>
                                 <p class="skill-meta">バージョン管理と共有に活用</p>
-                                <p class="skill-meta">経験年数: 5年</p>
                             </li>
                             <li>
-                                <p class="skill-name">Blender</p>
+                                <div class="skill-head">
+                                    <p class="skill-name">Blender</p>
+                                    <span class="skill-years">1年未満</span>
+                                </div>
                                 <p class="skill-meta">主な利用先: 3Dモデル制作、モデル調整</p>
                                 <p class="skill-meta">ゲーム制作に必要な範囲から学習を開始</p>
-                                <p class="skill-meta">経験年数: 1年未満</p>
                             </li>
 
                         </ul>

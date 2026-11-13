@@ -1,81 +1,26 @@
 /* About page specific styles */
 
-.activity-section {
-    margin-bottom: 1.6rem;
-}
-
-.activity-section:last-child {
-    margin-bottom: 0;
-}
-
-.activity-section h3 {
-    margin: 0 0 0.8rem 0;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--ink);
-    border-bottom: 2px solid var(--accent);
-    padding-bottom: 0.4rem;
-}
-
-.activity-section ul {
-    margin: 0;
-    padding-left: 1.2rem;
-}
-
-.activity-section li {
-    margin-bottom: 0.5rem;
-}
-
-.activity-section p {
-    margin: 0;
-    line-height: 1.6;
-}
-
 .summary-lead {
     margin: 0;
     color: var(--ink);
-    line-height: 1.8;
-}
-
-.profile-flow {
-    margin-top: 1rem;
-    display: grid;
-    gap: 0.9rem;
-}
-
-.profile-step {
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    background: #fff;
-    padding: 0.9rem;
-}
-
-.profile-step h3 {
-    margin: 0 0 0.55rem;
-    font-size: 1rem;
-    color: var(--ink);
-}
-
-.profile-step p {
-    margin: 0;
-    line-height: 1.72;
+    line-height: 1.85;
 }
 
 .about-nav {
-    margin: 0 0 1rem;
+    margin: 0 0 1.2rem;
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
 }
 
 .about-nav a {
-    padding: 0.32rem 0.72rem;
+    padding: 0.32rem 0.8rem;
     border-radius: 999px;
     border: 1px solid var(--line);
-    background: #fff;
+    background: var(--paper);
     color: var(--muted);
     font-size: 0.9rem;
-    transition: 0.2s ease;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
 .about-nav a:hover {
@@ -89,102 +34,100 @@
     margin-bottom: 0.9rem;
 }
 
-.role-grid {
-    margin-top: 1rem;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.85rem;
-}
-
-.role-card {
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    background: #fff;
-    padding: 0.95rem;
-}
-
-.role-card h3 {
-    margin: 0 0 0.65rem;
-    font-size: 1rem;
-    color: var(--ink);
-}
-
-.role-card p {
-    margin: 0;
-    line-height: 1.72;
-}
-
+/* Step / role panels: tinted panel with accent bar instead of a full border */
+.profile-flow,
 .research-flow {
-    margin-top: 1rem;
+    margin-top: 1.2rem;
     display: grid;
     gap: 0.9rem;
 }
 
-.research-step {
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    background: #fff;
-    padding: 0.9rem;
+.role-grid {
+    margin-top: 1.2rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
 }
 
-.research-step h3 {
-    margin: 0 0 0.55rem;
+.profile-step,
+.research-step,
+.role-card {
+    background: var(--paper-soft);
+    border: 1px solid var(--line-soft);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.15rem;
+}
+
+.profile-step h3,
+.research-step h3,
+.role-card h3 {
+    margin: 0 0 0.5rem;
     font-size: 1rem;
-    color: var(--ink);
+    color: var(--accent-strong);
 }
 
-.research-step p {
+.profile-step p,
+.research-step p,
+.role-card p {
     margin: 0;
-    line-height: 1.72;
+    line-height: 1.75;
 }
 
-.card-bullet-list {
-    margin-top: 1rem;
-    list-style: none;
-    padding: 0;
-    display: grid;
-    gap: 0.65rem;
-}
-
-.card-bullet-list li {
-    padding: 0.75rem 0.9rem;
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    background: #fff;
-    line-height: 1.6;
-}
-
+/* Bullet rows */
+.card-bullet-list,
 .feature-list {
-    margin-top: 1rem;
+    margin: 1rem 0 0;
     list-style: none;
     padding: 0;
     display: grid;
-    gap: 0.65rem;
-}
-
-.compact-list {
     gap: 0.5rem;
 }
 
-.feature-list li {
-    padding: 0.72rem 0.86rem;
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    background: #fff;
-    line-height: 1.65;
+.compact-list {
+    gap: 0.4rem;
 }
 
+.card-bullet-list li,
+.feature-list li {
+    position: relative;
+    padding: 0.55rem 0.9rem 0.55rem 1.9rem;
+    border: 1px solid var(--line-soft);
+    border-radius: 10px;
+    background: #fff;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.card-bullet-list li::before,
+.feature-list li::before {
+    content: "";
+    position: absolute;
+    left: 0.85rem;
+    top: 1.05rem;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+/* Skills */
 .skill-category {
-    margin-top: 1rem;
+    margin-top: 1.4rem;
+}
+
+.skill-category:first-of-type {
+    margin-top: 0.4rem;
 }
 
 .skill-category h3 {
-    margin: 0 0 0.8rem 0;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--ink);
+    margin: 0 0 0.8rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--accent-strong);
     border-bottom: 2px solid var(--accent);
-    padding-bottom: 0.4rem;
+    padding-bottom: 0.35rem;
 }
 
 .skill-list {
@@ -192,27 +135,50 @@
     margin: 0;
     padding: 0;
     display: grid;
-    gap: 0.9rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0.8rem;
 }
 
 .skill-list li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
     padding: 0.9rem 1rem;
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    background: #ffffff;
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-md);
+    background: #fff;
+}
+
+.skill-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    margin-bottom: 0.3rem;
 }
 
 .skill-name {
-    margin: 0 0 0.35rem 0;
+    margin: 0;
     font-weight: 700;
     color: var(--ink);
+}
+
+.skill-years {
+    flex-shrink: 0;
+    font-size: 0.78rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--accent-strong);
+    background: var(--accent-soft);
+    border-radius: 999px;
+    padding: 0.12rem 0.6rem;
 }
 
 .skill-meta {
     margin: 0;
     line-height: 1.6;
     color: var(--muted);
-    font-size: 0.95rem;
+    font-size: 0.92rem;
 }
 
 @media (max-width: 860px) {
@@ -222,5 +188,11 @@
 
     .about-nav {
         gap: 0.4rem;
+    }
+
+    .profile-step,
+    .research-step,
+    .role-card {
+        padding: 0.9rem 1rem;
     }
 }

@@ -14,7 +14,7 @@ async function loadWorks() {
         return;
     }
 
-    renderStatus("作品一覧を読み込み中です...");
+    renderSkeleton(3);
 
     try {
         const endpoint = `${GAS_WEB_APP_URL}${GAS_WEB_APP_URL.includes("?") ? "&" : "?"}action=works`;
@@ -106,7 +106,31 @@ function renderStatus(message, isError = false) {
         return;
     }
 
+    grid.removeAttribute("aria-busy");
     grid.innerHTML = `<p class="works-status${isError ? " is-error" : ""}">${escapeHtml(message)}</p>`;
+}
+
+function renderSkeleton(count) {
+    const grid = document.getElementById("worksGrid");
+    if (!grid) {
+        return;
+    }
+
+    grid.setAttribute("aria-busy", "true");
+    grid.innerHTML = Array.from({ length: count })
+        .map(
+            () => `
+                <div class="work-skeleton" aria-hidden="true">
+                    <div class="work-skeleton-thumb"></div>
+                    <div class="work-skeleton-body">
+                        <div class="work-skeleton-line is-title"></div>
+                        <div class="work-skeleton-line"></div>
+                        <div class="work-skeleton-line is-short"></div>
+                    </div>
+                </div>
+            `
+        )
+        .join("");
 }
 
 function renderWorkPanels() {
@@ -115,10 +139,11 @@ function renderWorkPanels() {
         return;
     }
 
+    grid.removeAttribute("aria-busy");
     grid.innerHTML = worksData
         .map(
             (work) => `
-                <div class="work-panel" data-work-id="${work.id}">
+                <div class="work-panel" data-work-id="${work.id}" role="button" tabindex="0" aria-label="${escapeHtml(work.title)} の詳細を開く">
                     <div class="work-panel-thumbnail">
                         ${
                             work.imageUrl
@@ -126,13 +151,15 @@ function renderWorkPanels() {
                                 : "画像なし"
                         }
                     </div>
-                    <div class="work-panel-title">${escapeHtml(work.title)}</div>
-                    <div class="work-panel-genre">${escapeHtml(work.summary || "概要未設定")}</div>
-                    <div class="work-panel-tags">
-                        ${[...work.tech, ...work.tags]
-                            .slice(0, 5)
-                            .map((tag) => `<span class="work-panel-tag">${escapeHtml(tag)}</span>`)
-                            .join("")}
+                    <div class="work-panel-body">
+                        <div class="work-panel-title">${escapeHtml(work.title)}</div>
+                        <div class="work-panel-genre">${escapeHtml(work.summary || "概要未設定")}</div>
+                        <div class="work-panel-tags">
+                            ${[...work.tech, ...work.tags]
+                                .slice(0, 5)
+                                .map((tag) => `<span class="work-panel-tag">${escapeHtml(tag)}</span>`)
+                                .join("")}
+                        </div>
                     </div>
                 </div>
             `
@@ -140,17 +167,26 @@ function renderWorkPanels() {
         .join("");
 
     document.querySelectorAll(".work-panel").forEach((panel) => {
-        panel.addEventListener("click", () => {
+        const open = () => {
             const workId = Number(panel.dataset.workId);
             const work = worksData.find((item) => item.id === workId);
             if (work) {
-                openModal(work);
+                openModal(work, panel);
+            }
+        };
+        panel.addEventListener("click", open);
+        panel.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                open();
             }
         });
     });
 }
 
-function openModal(work) {
+let lastFocusedPanel = null;
+
+function openModal(work, trigger = null) {
     const modal = document.getElementById("workModal");
     const modalBody = document.getElementById("modalBody");
     const modalTitle = document.getElementById("modalTitle");
@@ -223,16 +259,29 @@ function openModal(work) {
         </div>
     `;
 
+    lastFocusedPanel = trigger;
     modal.style.display = "flex";
+    document.body.classList.add("modal-open");
+
+    const closeBtn = document.getElementById("modalClose");
+    if (closeBtn) {
+        closeBtn.focus();
+    }
 }
 
 function closeModal() {
     const modal = document.getElementById("workModal");
-    if (!modal) {
+    if (!modal || modal.style.display === "none") {
         return;
     }
 
     modal.style.display = "none";
+    document.body.classList.remove("modal-open");
+
+    if (lastFocusedPanel) {
+        lastFocusedPanel.focus();
+        lastFocusedPanel = null;
+    }
 }
 
 function setupModalHandlers() {

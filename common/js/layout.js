@@ -62,6 +62,25 @@ async function initPage() {
     
     await loadPartials();
     initCommonUi();
+    scrollToHashTarget();
+}
+
+// ヘッダー読み込みでレイアウトが変わるため、読み込み後にアンカー位置へ移動し直す
+function scrollToHashTarget() {
+    if (!window.location.hash) {
+        return;
+    }
+
+    let target = null;
+    try {
+        target = document.querySelector(decodeURIComponent(window.location.hash));
+    } catch (error) {
+        return;
+    }
+
+    if (target) {
+        target.scrollIntoView({ block: "start", behavior: "instant" });
+    }
 }
 
 function loadFontAwesome() {
